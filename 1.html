@@ -3,321 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>№1,2 уже с выполнением задания 2 (там caps lock)</title>
-    
+    <title>№1 Автодополнение</title>
 </head>
-<body>
     <style>
-        body{
-            background-color: black;
-        }
+        #parent {
+	position: relative;
+}
+#elem {
+	padding: 5px;
+	font-size: 18px;
+}
 
-        .unite{
-            margin-top: 50px;
-            margin-left: 250px;
-            width: 550px;
-            border: 2px solid #000000;
-            border-radius: 10px;
-        }
-        .caps-lock{
-            margin-bottom: 5px;
-            font-size: 15px;
-            background-color: rgb(243, 80, 83);
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .table-F{
-            width: 550px;
-            height: 30px;
-        }
-        .table-F td{
-            text-align: center;
-            background-color: rgb(243, 80, 83);
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.25s;
-        }
-        .table-F td:hover {
-        transform: scale(1.2);
-        }
-        .numbers{
-            width: 550px;
-            height: 40px;
-        }
-        .numbers td{
-            text-align: center;
-            background-color: rgb(241, 133, 60);
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.25s;
-        }
-        .numbers td:hover {
-        transform: scale(1.2);
-        }
-        .first-line{
-            width: 550px;
-            height: 40px;
-        }
-        .first-line td{
-            font-size: 20px;
-            background-color: rgb(242, 219, 125);
-            text-align: center;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.25s;
-        }
-        .first-line td:hover {
-        transform: scale(1.2);
-        }
-        .second-line{
-            width: 550px;
-            height: 40px;
-        }
-        .second-line td{
-            font-size: 20px;
-            background-color: rgb(246, 185, 128);
-            text-align: center;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.25s;
-        }
-        .second-line td:hover {
-        transform: scale(1.2);
-        }
-        .third-line{
-            width: 550px;
-            height: 40px;
-        }
-        .third-line td{
-            font-size: 20px;
-            background-color: rgb(241, 133, 60);
-            text-align: center;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.25s;
-        }
-        .third-line td:hover {
-        transform: scale(1.2);
-        }
-        .last-line {
-            width: 550px;
-            height: 40px;
-        }
-        .last-line td{
-            font-size: 20px;
-            background-color: rgb(243, 80, 83);
-            text-align: center;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.25s;
-        }
-        .last-line td:hover {
-        transform: scale(1.2);
-        }
-        .paragraph{
-            word-wrap: break-word;
-            margin-top: 100px;
-            margin-left: 300px;
-            padding: 5px 10px;
-            width: 400px;
-            height: 40px;
-            color:white;
-            font-size: 20px;
-            background-color: black;
-            border: 3px solid rgb(241, 133, 60);;
-            border-radius: 7px;
-            text-decoration: none;
-        }
-        .paragraph li{
-            margin-left: 2px;
-            margin-bottom: 3px;
-            text-decoration: none;
-            display: inline;
-        }
-
+#parent ul {
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	background-color: white;
+}
+#parent li {
+	border: 1px solid gray;
+	font-size: 18px;
+	padding: 5px;
+}
+#parent li:hover {
+	border: 1px solid black;
+	cursor: pointer;
+}
 
     </style>
-
-    <div class="container">
-        <!-- вместо настоящего input использован ul, тк в input элементы объекта вставить
-        не получилось -->
-        <ul class="paragraph">
-            <li class="first-li">| Введите текст с клавиатуры</li>
-        </ul>
-        <div class="unite">
-            <button class="caps-lock">Caps Lock</button>
-            <table class="table-F"></table>
-            <table class="numbers"></table>
-            <table class="first-line"></table>
-            <table class="second-line"></table>
-            <table class="third-line"></table>
-            <table class="last-line"></table>
-
-        </div>
+<body>
+    <div id="parent">
+        <input id="elem">
     </div>
+    <ul>
 
-
+    </ul>
+    
     <script>
-//кликабельные все клавиши с буквами и цифрами
-//ряды создавались отдельно, тк не знаю как единым циклом кнопки с разным содержанием реализовать
-        let input = document.querySelector('.input');
-        let par = document.querySelector('.paragraph');
-        let inputSpan = document.querySelector('.input-group__overlay');
-        let firstLi = document.querySelector('.first-li');
-        let capsLock = document.querySelector('.caps-lock');
-        let arr = []
+    let state;
 
-// Caps Lock
-var isOrange = true;
-//переменная toggle для проверки включен ли капс, или нет
-capsLock.onclick = function(){
-    if(isOrange){
-        for ( let i = 0; i < arr.length; i++ ) (function(i){
-    arr[i].onclick = function() {
-        firstLi.style.display = 'none'
-        item = arr[i].innerHTML
-        li = document.createElement('li');
-        li.textContent = item.toUpperCase()
-        par.append(li)
-        }
-    })(i);
-    }else{
-        for ( let i = 0; i < arr.length; i++ ) (function(i){
-    arr[i].onclick = function() {
-        firstLi.style.display = 'none'
-        item = arr[i].innerHTML
-        li = document.createElement('li');
-        li.textContent = item
-        par.append(li)
-        }
-    })(i);
+    const input = document.getElementById('elem');
+    let list = document.querySelector('ul');
+
+    const towns = [
+        'belgorod',
+        'baranovichi',
+        'berdyansk',
+        'minabur',
+        'monserrat',
+        'monsterra'
+    ];
+
+    function keyupHandler(){
+        list.innerHTML = '';
+        state = input.value;
+        checkIn();
     }
-    isOrange = !isOrange;
-    }
-
-    //ряд с цифрами
-    let tableNumbers = document.querySelector('.numbers');
-    let m = 1; 
-	for (let i = 0; i < 9; i++) {
-		let td = document.createElement('td');		
-		td.textContent = m;
-		m++; 	
-        tableNumbers.append(td);
-        arr.push(td)
-	}
-    upper = document.createElement('td');
-    upper.textContent = 'ё';
-    tableNumbers.insertBefore(upper, tableNumbers.firstChild)
-    arr.push(upper)
-
-    tdZero = document.createElement('td');
-    tdZero.textContent = '0';
-    tableNumbers.append(tdZero)
-    arr.push(tdZero)
-
-    tdMinus = document.createElement('td');
-    tdMinus.textContent = '-';
-    tableNumbers.append(tdMinus)
-    arr.push(tdMinus)
-
-    tdPlus = document.createElement('td');
-    tdPlus.textContent = '+';
-    tableNumbers.append(tdPlus)
-    arr.push(tdPlus)
-
-    backSpace = document.createElement('td');
-    backSpace.textContent = 'backspace';
-    tableNumbers.append(backSpace)
-    tableNumbers.append(backSpace)
-
-//первый ряд букв
-alphabet = 'qwertyuiop{}'.split('');
-alphabetLength = alphabet.length;
-l = 1;
-let firstLine = document.querySelector('.first-line');
-	for (let i = 0; i < alphabetLength; i++) {
-		let td = document.createElement('td');		
-		td.textContent = alphabet[i];
-		l++; 	
-        firstLine.append(td);
-        arr.push(td)
-	}
-    tab = document.createElement('td');
-    tab.textContent = 'tab';
-    firstLine.append(tab)
-    firstLine.insertBefore(tab, firstLine.firstChild)
-
-//второй ряд букв
-alphabet = 'asdfghjkl;#'.split('');
-alphabetLength = alphabet.length;
-a = 1;
-let secondLine = document.querySelector('.second-line');
-for (let i = 0; i < alphabetLength; i++) {
-		let td = document.createElement('td');		
-		td.textContent = alphabet[i];
-		a++; 	
-        secondLine.append(td);
-        arr.push(td)
-	}
-
-//третий ряд букв
-alphabet = 'zxcvbnm,.?'.split('');
-alphabetLength = alphabet.length;
-b =1;
-let thirdLine = document.querySelector('.third-line');
-for (let i = 0; i < alphabetLength; i++) {
-		let td = document.createElement('td');		
-		td.textContent = alphabet[i];
-		a++; 	
-        thirdLine.append(td);
-        arr.push(td)
-	}
-    shift = document.createElement('td');
-    shift.textContent = 'shift';
-    thirdLine.insertBefore(shift, thirdLine.firstChild)
-
-    for ( let i = 0; i < arr.length; i++ ) (function(i){
-    arr[i].onclick = function() {
-        firstLi.style.display = 'none'
-        item = arr[i].innerHTML
-        li = document.createElement('li');
-        li.textContent = item
-        par.append(li)
-
+    
+    function checkIn(){
+    const substr = state;
+    let res = towns.filter(function(elem){
+        if(elem.startsWith(substr)){
+            const li = document.createElement('li');
+            li.innerHTML = elem;
+            list.append(li);
         }
-    })(i);
-
-    //ряд F
-    let tableF = document.querySelector('.table-F');
-    let k = 1; 
-	for (let i = 0; i < 12; i++) {
-		let td = document.createElement('td');		
-		td.textContent = 'F'+k;
-		k++; 	
-        tableF.append(td);
-        arr.push(td)
-	}
-    esc = document.createElement('td');
-    esc.textContent = 'esc';
-    tableF.append(esc)
-    tableF.insertBefore(esc, tableF.firstChild)
-
-    //последний ряд букв
-    alphabet = 'ctr,fn, win,alt,s p a c e, gr, fn, ctrl'.split(',');
-    alphabetLength = alphabet.length;
-    c =1;
-    let lastLine = document.querySelector('.last-line');
-
-    for (let i = 0; i < alphabetLength; i++) {
-            let td = document.createElement('td');		
-            td.textContent = alphabet[i];
-            c++; 	
-            lastLine.append(td);
-            arr.push(td)
-        }
-    space = document.createElement('td');
-    space.textContent = 'space';
-    lastLine.append(space)
+    })
+}
+    input.addEventListener('keyup',keyupHandler);
     </script>
+
 </body>
 </html>
